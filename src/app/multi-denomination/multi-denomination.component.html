@@ -1,0 +1,56 @@
+<div class="content">
+  <mat-horizontal-stepper linear #stepper>
+    <mat-step [stepControl]="firstFormGroup" [editable]="true">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Alap adatok</ng-template>
+        <p>
+          <mat-form-field>
+            <mat-label>Munkamenet neve</mat-label>
+            <input matInput formControlName="firstCtrl" placeholder="Munkamenet neve" required>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field>
+            <mat-label>Teljes Osszeg</mat-label>
+            <input matInput formControlName="firstCtrl" placeholder="Teljes Osszeg" required>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field>
+            <mat-label>Penznem</mat-label>
+            <mat-select [formControl]="currenciesCtrl" required>
+              <mat-select-trigger>
+                {{currenciesCtrl.value}}
+              </mat-select-trigger>
+              <mat-option *ngFor="let currency of currencyList" [value]="currency">{{currency}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </p>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup" [editable]="true">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Kézpénz készlet</ng-template>
+        <mat-form-field>
+          <mat-label>Address</mat-label>
+          <input matInput formControlName="secondCtrl" placeholder="" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Ellenorzes</ng-template>
+      <p>You are now done.</p>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>

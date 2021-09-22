@@ -1,0 +1,51 @@
+<div class="content">
+ <mat-form-field class="full-width amount" appearance="outline">
+    <mat-label>Irja be az osszeget</mat-label>
+    <input (keyup.enter)="denominate()" matInput type="text" placeholder="0" class="my-button" autofocus onclick="this.select()" (change)="transformAmount($event)" [(ngModel)]="amount">
+    <mat-hint></mat-hint>
+  </mat-form-field>
+
+  <button [disabled]="!amount" mat-flat-button color="primary" (click)="denominate()">Bontás</button>
+
+  <mat-divider></mat-divider>
+
+  <mat-accordion class="full-width headers-align">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Részletező
+        </mat-panel-title>
+        <mat-panel-description>
+          Maradék {{denominator.finalReminders | currency : currencyCode: currencyDisplay: currencyDigitsInfo: currencyLocal}}
+          <mat-icon>receipt_long</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <mat-list role="list" class="list">
+        <div *ngFor="let cc of denominator.cashCounters">
+          <div *ngIf="cc.quantity != 0">
+            <mat-list-item class="right" role="listitem">
+              <strong>= {{cc.reminders | currency : currencyCode: currencyDisplay: currencyDigitsInfo: currencyLocal}}</strong>
+            </mat-list-item>
+            <mat-list-item class="right" role="listitem">
+              <strong>-</strong><i>{{cc.quantity * cc.cacheValue | currency : currencyCode: currencyDisplay: currencyDigitsInfo: currencyLocal}} ({{cc.quantity}} X {{cc.cacheValue | currency : currencyCode: currencyDisplay: currencyDigitsInfo: currencyLocal}})</i>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+          </div>
+        </div>
+        <mat-list-item><strong>Maradék = {{denominator.finalReminders | currency : currencyCode: currencyDisplay: currencyDigitsInfo: currencyLocal}}</strong></mat-list-item>
+      </mat-list>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <div class="flax-container">
+    <mat-card class="card mat-elevation-z0" *ngFor="let cc of denominator.cashCounters">
+      <mat-card-header>
+        <mat-card-subtitle></mat-card-subtitle>
+      </mat-card-header>
+      <div matBadge="{{cc.quantity}}" matBadgeSize="large">
+        <img [ngClass]="{'overlay' : cc.quantity==0 && amount != false}" mat-card-image src="assets/images/banknotes/hungarian/{{cc.cacheName}}.png" alt="{{cc.cacheName}}">
+      </div>
+    </mat-card>
+  </div>
+
+</div>

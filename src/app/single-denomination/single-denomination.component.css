@@ -26,12 +26,6 @@ h6 {
   justify-content: space-around;
 }
 
-.form {
-  min-width: 150px;
-  max-width: 500px;
-  width: 100%;
-}
-
 .full-width {
   width: 100%;
 }
@@ -63,7 +57,7 @@ input.right-align::-webkit-inner-spin-button {
 }
 
 .card {
-  max-width: 200px;
+  max-width: 100px;
 }
 
 .mat-badge-large .mat-badge-content {
